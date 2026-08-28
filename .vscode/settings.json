@@ -1,0 +1,16 @@
+{
+  "clangd.enable": true,
+  "python.defaultInterpreterPath": "${workspaceFolder}/serial_test/.venv/Scripts/python.exe",
+  "cmake.configureOnOpen": false,
+  "makefile.configureOnOpen": false,
+  "files.associations": {
+    "*.h": "c",
+    "*.c": "c"
+  },
+  "terminal.integrated.env.windows": {
+    "PATH": "C:\\Program Files (x86)\\Arm GNU Toolchain arm-none-eabi\\13.2 Rel1\\bin;C:\\msys64\\usr\\bin;C:\\msys64\\ucrt64\\bin;${env:USERPROFILE}\\.cargo\\bin;${env:PATH}"
+  },
+  "cortex-debug.armToolchainPath": "C:/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/13.2 Rel1/bin",
+  "cortex-debug.gdbPath": "C:/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/13.2 Rel1/bin/arm-none-eabi-gdb.exe",
+  "cortex-debug.stutilPath": "C:/msys64/ucrt64/bin/st-util.exe"
+}

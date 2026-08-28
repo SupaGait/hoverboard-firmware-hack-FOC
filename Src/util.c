@@ -1569,6 +1569,7 @@ void poweroff(void) {
     buzzerFreq = (uint8_t)i;
     HAL_Delay(100);
   }
+  buzzerFreq = 0;
   saveConfig();
   HAL_GPIO_WritePin(OFF_PORT, OFF_PIN, GPIO_PIN_RESET);
   while(1) {}

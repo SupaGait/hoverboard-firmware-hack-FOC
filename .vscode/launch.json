@@ -1,0 +1,41 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug (ST-Link)",
+      "cwd": "${workspaceFolder}",
+      "executable": "${workspaceFolder}/build/hover.elf",
+      "request": "launch",
+      "type": "cortex-debug",
+      "servertype": "stutil",
+      "interface": "swd",
+      "device": "STM32F103RC",
+      "runToEntryPoint": "main",
+      "preLaunchTask": "Build firmware",
+      "serverArgs": ["--connect-under-reset"],
+      "armToolchainPath": "C:/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/13.2 Rel1/bin",
+      "gdbPath": "C:/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/13.2 Rel1/bin/arm-none-eabi-gdb.exe",
+      "serverpath": "C:/msys64/ucrt64/bin/st-util.exe"
+    },
+    {
+      "name": "Debug (probe-rs)",
+      "type": "probe-rs-debug",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "chip": "STM32F103RC",
+      "wireProtocol": "Swd",
+      "preLaunchTask": "Build firmware",
+      "connectUnderReset": true,
+      "flashingConfig": {
+        "flashingEnabled": true,
+        "haltAfterReset": true
+      },
+      "coreConfigs": [
+        {
+          "coreIndex": 0,
+          "programBinary": "${workspaceFolder}/build/hover.elf"
+        }
+      ]
+    }
+  ]
+}

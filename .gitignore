@@ -1,7 +1,8 @@
 !build/hover.hex
 .pio/
 .pioenvs/
-.vscode/
+.venv/
+**/__pycache__/
 MDK-ARM/DebugConfig/
 MDK-ARM/Listing/
 MDK-ARM/Objects/

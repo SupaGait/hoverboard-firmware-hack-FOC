@@ -1,0 +1,15 @@
+CompileFlags:
+  Add:
+    - --target=arm-none-eabi
+    - -mcpu=cortex-m3
+    - -mthumb
+    - -DUSE_HAL_DRIVER
+    - -DSTM32F103xE
+    - -IInc
+    - -IDrivers/STM32F1xx_HAL_Driver/Inc
+    - -IDrivers/STM32F1xx_HAL_Driver/Inc/Legacy
+    - -IDrivers/CMSIS/Device/ST/STM32F1xx/Include
+    - -IDrivers/CMSIS/Include
+    - -std=gnu11
+Index:
+  Background: true

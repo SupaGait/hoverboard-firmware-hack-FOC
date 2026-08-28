@@ -1,0 +1,46 @@
+{
+  "version": "2.0.0",
+  "options": {
+    "env": {
+      "PATH": "C:\\Program Files (x86)\\Arm GNU Toolchain arm-none-eabi\\13.2 Rel1\\bin;C:\\msys64\\usr\\bin;C:\\msys64\\ucrt64\\bin;${env:USERPROFILE}\\.cargo\\bin;${env:PATH}"
+    }
+  },
+  "tasks": [
+    {
+      "label": "Build firmware",
+      "type": "shell",
+      "command": "make",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": ["$gcc"],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Flash firmware",
+      "type": "shell",
+      "command": "st-flash --reset write build/hover.bin 0x8000000",
+      "dependsOn": "Build firmware",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Flash firmware (probe-rs)",
+      "type": "shell",
+      "command": "probe-rs download build/hover.bin --chip STM32F103RC --binary-format bin --base-address 0x8000000 --verify; probe-rs reset --chip STM32F103RC",
+      "dependsOn": "Build firmware",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    }
+  ]
+}
