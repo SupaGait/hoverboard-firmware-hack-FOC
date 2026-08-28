@@ -6,7 +6,7 @@ stop = threading.Event()
 
 
 def thread_send_command():
-    SPEED_MAX_TEST = 60  # [-] Maximum speed for testing
+    SPEED_MAX_TEST = 300  # [-] Maximum speed for testing
     SPEED_STEP = 2  # [-] Speed step
     TIME_SEND = 0.3  # [s] Sending time interval
 
