@@ -1,0 +1,77 @@
+[
+  {
+    "directory": "C:/Users/gklom/projects/hoverboard-firmware-hack-FOC",
+    "file": "Src/util.c",
+    "arguments": ["C:/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/13.2 Rel1/bin/arm-none-eabi-gcc.exe", "-c", "-mcpu=cortex-m3", "-mthumb", "-DUSE_HAL_DRIVER", "-DSTM32F103xE", "-IInc", "-IDrivers/STM32F1xx_HAL_Driver/Inc", "-IDrivers/STM32F1xx_HAL_Driver/Inc/Legacy", "-IDrivers/CMSIS/Device/ST/STM32F1xx/Include", "-IDrivers/CMSIS/Include", "-std=gnu11", "Src/util.c"]
+  },
+  {
+    "directory": "C:/Users/gklom/projects/hoverboard-firmware-hack-FOC",
+    "file": "Src/main.c",
+    "arguments": ["C:/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/13.2 Rel1/bin/arm-none-eabi-gcc.exe", "-c", "-mcpu=cortex-m3", "-mthumb", "-DUSE_HAL_DRIVER", "-DSTM32F103xE", "-IInc", "-IDrivers/STM32F1xx_HAL_Driver/Inc", "-IDrivers/STM32F1xx_HAL_Driver/Inc/Legacy", "-IDrivers/CMSIS/Device/ST/STM32F1xx/Include", "-IDrivers/CMSIS/Include", "-std=gnu11", "Src/main.c"]
+  },
+  {
+    "directory": "C:/Users/gklom/projects/hoverboard-firmware-hack-FOC",
+    "file": "Src/bldc.c",
+    "arguments": ["C:/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/13.2 Rel1/bin/arm-none-eabi-gcc.exe", "-c", "-mcpu=cortex-m3", "-mthumb", "-DUSE_HAL_DRIVER", "-DSTM32F103xE", "-IInc", "-IDrivers/STM32F1xx_HAL_Driver/Inc", "-IDrivers/STM32F1xx_HAL_Driver/Inc/Legacy", "-IDrivers/CMSIS/Device/ST/STM32F1xx/Include", "-IDrivers/CMSIS/Include", "-std=gnu11", "Src/bldc.c"]
+  },
+  {
+    "directory": "C:/Users/gklom/projects/hoverboard-firmware-hack-FOC",
+    "file": "Src/control.c",
+    "arguments": ["C:/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/13.2 Rel1/bin/arm-none-eabi-gcc.exe", "-c", "-mcpu=cortex-m3", "-mthumb", "-DUSE_HAL_DRIVER", "-DSTM32F103xE", "-IInc", "-IDrivers/STM32F1xx_HAL_Driver/Inc", "-IDrivers/STM32F1xx_HAL_Driver/Inc/Legacy", "-IDrivers/CMSIS/Device/ST/STM32F1xx/Include", "-IDrivers/CMSIS/Include", "-std=gnu11", "Src/control.c"]
+  },
+  {
+    "directory": "C:/Users/gklom/projects/hoverboard-firmware-hack-FOC",
+    "file": "Src/comms.c",
+    "arguments": ["C:/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/13.2 Rel1/bin/arm-none-eabi-gcc.exe", "-c", "-mcpu=cortex-m3", "-mthumb", "-DUSE_HAL_DRIVER", "-DSTM32F103xE", "-IInc", "-IDrivers/STM32F1xx_HAL_Driver/Inc", "-IDrivers/STM32F1xx_HAL_Driver/Inc/Legacy", "-IDrivers/CMSIS/Device/ST/STM32F1xx/Include", "-IDrivers/CMSIS/Include", "-std=gnu11", "Src/comms.c"]
+  },
+  {
+    "directory": "C:/Users/gklom/projects/hoverboard-firmware-hack-FOC",
+    "file": "Src/setup.c",
+    "arguments": ["C:/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/13.2 Rel1/bin/arm-none-eabi-gcc.exe", "-c", "-mcpu=cortex-m3", "-mthumb", "-DUSE_HAL_DRIVER", "-DSTM32F103xE", "-IInc", "-IDrivers/STM32F1xx_HAL_Driver/Inc", "-IDrivers/STM32F1xx_HAL_Driver/Inc/Legacy", "-IDrivers/CMSIS/Device/ST/STM32F1xx/Include", "-IDrivers/CMSIS/Include", "-std=gnu11", "Src/setup.c"]
+  },
+  {
+    "directory": "C:/Users/gklom/projects/hoverboard-firmware-hack-FOC",
+    "file": "Src/eeprom.c",
+    "arguments": ["C:/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/13.2 Rel1/bin/arm-none-eabi-gcc.exe", "-c", "-mcpu=cortex-m3", "-mthumb", "-DUSE_HAL_DRIVER", "-DSTM32F103xE", "-IInc", "-IDrivers/STM32F1xx_HAL_Driver/Inc", "-IDrivers/STM32F1xx_HAL_Driver/Inc/Legacy", "-IDrivers/CMSIS/Device/ST/STM32F1xx/Include", "-IDrivers/CMSIS/Include", "-std=gnu11", "Src/eeprom.c"]
+  },
+  {
+    "directory": "C:/Users/gklom/projects/hoverboard-firmware-hack-FOC",
+    "file": "Src/stm32f1xx_it.c",
+    "arguments": ["C:/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/13.2 Rel1/bin/arm-none-eabi-gcc.exe", "-c", "-mcpu=cortex-m3", "-mthumb", "-DUSE_HAL_DRIVER", "-DSTM32F103xE", "-IInc", "-IDrivers/STM32F1xx_HAL_Driver/Inc", "-IDrivers/STM32F1xx_HAL_Driver/Inc/Legacy", "-IDrivers/CMSIS/Device/ST/STM32F1xx/Include", "-IDrivers/CMSIS/Include", "-std=gnu11", "Src/stm32f1xx_it.c"]
+  },
+  {
+    "directory": "C:/Users/gklom/projects/hoverboard-firmware-hack-FOC",
+    "file": "Src/BLDC_controller.c",
+    "arguments": ["C:/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/13.2 Rel1/bin/arm-none-eabi-gcc.exe", "-c", "-mcpu=cortex-m3", "-mthumb", "-DUSE_HAL_DRIVER", "-DSTM32F103xE", "-IInc", "-IDrivers/STM32F1xx_HAL_Driver/Inc", "-IDrivers/STM32F1xx_HAL_Driver/Inc/Legacy", "-IDrivers/CMSIS/Device/ST/STM32F1xx/Include", "-IDrivers/CMSIS/Include", "-std=gnu11", "Src/BLDC_controller.c"]
+  },
+  {
+    "directory": "C:/Users/gklom/projects/hoverboard-firmware-hack-FOC",
+    "file": "Src/BLDC_controller_data.c",
+    "arguments": ["C:/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/13.2 Rel1/bin/arm-none-eabi-gcc.exe", "-c", "-mcpu=cortex-m3", "-mthumb", "-DUSE_HAL_DRIVER", "-DSTM32F103xE", "-IInc", "-IDrivers/STM32F1xx_HAL_Driver/Inc", "-IDrivers/STM32F1xx_HAL_Driver/Inc/Legacy", "-IDrivers/CMSIS/Device/ST/STM32F1xx/Include", "-IDrivers/CMSIS/Include", "-std=gnu11", "Src/BLDC_controller_data.c"]
+  },
+  {
+    "directory": "C:/Users/gklom/projects/hoverboard-firmware-hack-FOC",
+    "file": "Src/system_stm32f1xx.c",
+    "arguments": ["C:/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/13.2 Rel1/bin/arm-none-eabi-gcc.exe", "-c", "-mcpu=cortex-m3", "-mthumb", "-DUSE_HAL_DRIVER", "-DSTM32F103xE", "-IInc", "-IDrivers/STM32F1xx_HAL_Driver/Inc", "-IDrivers/STM32F1xx_HAL_Driver/Inc/Legacy", "-IDrivers/CMSIS/Device/ST/STM32F1xx/Include", "-IDrivers/CMSIS/Include", "-std=gnu11", "Src/system_stm32f1xx.c"]
+  },
+  {
+    "directory": "C:/Users/gklom/projects/hoverboard-firmware-hack-FOC",
+    "file": "Src/hd44780.c",
+    "arguments": ["C:/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/13.2 Rel1/bin/arm-none-eabi-gcc.exe", "-c", "-mcpu=cortex-m3", "-mthumb", "-DUSE_HAL_DRIVER", "-DSTM32F103xE", "-IInc", "-IDrivers/STM32F1xx_HAL_Driver/Inc", "-IDrivers/STM32F1xx_HAL_Driver/Inc/Legacy", "-IDrivers/CMSIS/Device/ST/STM32F1xx/Include", "-IDrivers/CMSIS/Include", "-std=gnu11", "Src/hd44780.c"]
+  },
+  {
+    "directory": "C:/Users/gklom/projects/hoverboard-firmware-hack-FOC",
+    "file": "Src/pcf8574.c",
+    "arguments": ["C:/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/13.2 Rel1/bin/arm-none-eabi-gcc.exe", "-c", "-mcpu=cortex-m3", "-mthumb", "-DUSE_HAL_DRIVER", "-DSTM32F103xE", "-IInc", "-IDrivers/STM32F1xx_HAL_Driver/Inc", "-IDrivers/STM32F1xx_HAL_Driver/Inc/Legacy", "-IDrivers/CMSIS/Device/ST/STM32F1xx/Include", "-IDrivers/CMSIS/Include", "-std=gnu11", "Src/pcf8574.c"]
+  },
+  {
+    "directory": "C:/Users/gklom/projects/hoverboard-firmware-hack-FOC",
+    "file": "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.c",
+    "arguments": ["C:/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/13.2 Rel1/bin/arm-none-eabi-gcc.exe", "-c", "-mcpu=cortex-m3", "-mthumb", "-DUSE_HAL_DRIVER", "-DSTM32F103xE", "-IInc", "-IDrivers/STM32F1xx_HAL_Driver/Inc", "-IDrivers/STM32F1xx_HAL_Driver/Inc/Legacy", "-IDrivers/CMSIS/Device/ST/STM32F1xx/Include", "-IDrivers/CMSIS/Include", "-std=gnu11", "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.c"]
+  },
+  {
+    "directory": "C:/Users/gklom/projects/hoverboard-firmware-hack-FOC",
+    "file": "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c",
+    "arguments": ["C:/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/13.2 Rel1/bin/arm-none-eabi-gcc.exe", "-c", "-mcpu=cortex-m3", "-mthumb", "-DUSE_HAL_DRIVER", "-DSTM32F103xE", "-IInc", "-IDrivers/STM32F1xx_HAL_Driver/Inc", "-IDrivers/STM32F1xx_HAL_Driver/Inc/Legacy", "-IDrivers/CMSIS/Device/ST/STM32F1xx/Include", "-IDrivers/CMSIS/Include", "-std=gnu11", "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c"]
+  }
+]
