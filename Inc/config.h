@@ -181,8 +181,8 @@
 
 // ############################## DEFAULT SETTINGS ############################
 // Default settings will be applied at the end of this config file if not set before
-#define INACTIVITY_TIMEOUT        8       // Minutes of not driving until poweroff. it is not very precise.
-#define BEEPS_BACKWARD            1       // 0 or 1
+#define INACTIVITY_TIMEOUT        65535   // CarrierHasArrived: do not latch off while the base sits armed. Stock was 8 minutes.
+#define BEEPS_BACKWARD            0       // CarrierHasArrived: the base reverses often; stock beeped on every reverse.
 #define ADC_MARGIN                100     // ADC input margin applied on the raw ADC min and max to make sure the MIN and MAX values are reached even in the presence of noise
 #define ADC_PROTECT_TIMEOUT       100     // ADC Protection: number of wrong / missing input commands before safety state is taken
 #define ADC_PROTECT_THRESH        200     // ADC Protection threshold below/above the MIN/MAX ADC values
@@ -345,7 +345,11 @@
     #define FLASH_WRITE_KEY      0x1002  // Flash memory writing key. Change this key to ignore the input calibrations from the flash memory and use the ones in config.h
   #endif
 
-  // #define TANK_STEERING              // use for tank steering, each input controls each wheel 
+  // CarrierHasArrived: USART steer is the left wheel, USART speed is the right wheel.
+  // The ESP32 ramps; open the firmware limiter and filter so they do not add a second ramp.
+  #define TANK_STEERING                  // each serial field commands one wheel, no mixer
+  #define RATE                   32767   // rateLimiter16 step; 32767 passes a full-scale step
+  #define FILTER                 65535   // low-pass coef, nearly 1.0 in fixdt(0,16,16) 
   // #define SUPPORT_BUTTONS_LEFT       // use left sensor board cable for button inputs.  Disable DEBUG_SERIAL_USART2!
   // #define SUPPORT_BUTTONS_RIGHT      // use right sensor board cable for button inputs. Disable DEBUG_SERIAL_USART3!
 #endif
