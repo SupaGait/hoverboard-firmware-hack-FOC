@@ -30,6 +30,75 @@
 #include "BLDC_controller.h"
 #include "rtwtypes.h"
 #include "comms.h"
+#include "iap_protocol.h"
+
+/* Fixed address of Bootloader/iap_run (see Bootloader/linker.ld). */
+#define IAP_RUN_ADDR 0x08000201u
+
+static void iap_enter_from_app(void)
+{
+  typedef void (*iap_fn)(void);
+  __disable_irq();
+  /* Stop motors: TIM1/TIM8 PWM off if present. */
+  TIM1->BDTR &= ~(TIM_BDTR_MOE);
+#ifdef TIM8
+  TIM8->BDTR &= ~(TIM_BDTR_MOE);
+#endif
+  ((iap_fn)IAP_RUN_ADDR)();
+  while (1) {
+  }
+}
+
+static void iap_watch_bytes(const uint8_t *data, uint32_t len)
+{
+  static uint8_t prev;
+  static uint8_t sync;
+  static uint16_t n;
+  static uint8_t buf[IAP_MAX_FRAME];
+  for (uint32_t i = 0; i < len; i++) {
+    uint8_t byte = data[i];
+    if (!sync) {
+      uint16_t start = ((uint16_t)byte << 8) | prev;
+      prev = byte;
+      if (start == IAP_START_FRAME) {
+        buf[0] = (uint8_t)(IAP_START_FRAME & 0xFF);
+        buf[1] = (uint8_t)(IAP_START_FRAME >> 8);
+        n = 2;
+        sync = 1;
+      }
+      continue;
+    }
+    if (n < IAP_MAX_FRAME) {
+      buf[n++] = byte;
+    } else {
+      sync = 0;
+      n = 0;
+      prev = byte;
+      continue;
+    }
+    prev = byte;
+    if (n < IAP_HEADER_LEN) {
+      continue;
+    }
+    uint16_t plen = (uint16_t)buf[4] | ((uint16_t)buf[5] << 8);
+    if (plen > IAP_MAX_PAYLOAD) {
+      sync = 0;
+      n = 0;
+      continue;
+    }
+    uint16_t total = (uint16_t)(IAP_HEADER_LEN + plen + IAP_CRC_LEN);
+    if (n < total) {
+      continue;
+    }
+    uint32_t got = (uint32_t)buf[total - 4] | ((uint32_t)buf[total - 3] << 8) |
+                   ((uint32_t)buf[total - 2] << 16) | ((uint32_t)buf[total - 1] << 24);
+    if (got == iap_crc32(buf, IAP_HEADER_LEN + plen) && buf[2] == IAP_MSG_HELLO) {
+      iap_enter_from_app();
+    }
+    sync = 0;
+    n = 0;
+  }
+}
 
 #if defined(DEBUG_I2C_LCD) || defined(SUPPORT_LCD)
 #include "hd44780.h"
@@ -1110,6 +1179,12 @@ void usart2_rx_check(void)
   #ifdef CONTROL_SERIAL_USART2
   uint8_t *ptr;	
   if (pos != old_pos) {                                                 // Check change in received data
+    if (pos > old_pos) {
+      iap_watch_bytes(&rx_buffer_L[old_pos], pos - old_pos);
+    } else {
+      iap_watch_bytes(&rx_buffer_L[old_pos], rx_buffer_L_len - old_pos);
+      iap_watch_bytes(&rx_buffer_L[0], pos);
+    }
     ptr = (uint8_t *)&commandL_raw;                                     // Initialize the pointer with command_raw address
     if (pos > old_pos && (pos - old_pos) == commandL_len) {             // "Linear" buffer mode: check if current position is over previous one AND data length equals expected length
       memcpy(ptr, &rx_buffer_L[old_pos], commandL_len);                 // Copy data. This is possible only if command_raw is contiguous! (meaning all the structure members have the same size)
