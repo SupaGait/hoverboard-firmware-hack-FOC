@@ -2,9 +2,12 @@ name: Build
 
 on:
   push:
-    branches: [ '*' ]
+    branches:
+      - CarrierHasArrived_single_board
+      - cursor/hoverboard-ota-4ddd
   pull_request:
-    branches: [ '*' ]
+    branches:
+      - CarrierHasArrived_single_board
 
 jobs:
   build:
@@ -12,19 +15,43 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # Get required packages
     - uses: actions/checkout@v4
     - uses: carlosperate/arm-none-eabi-gcc-action@v1
       with:
         release: '9-2019-q4'
 
-    # Build with make
-    - name: make
-      env: 
-        VARIANT: VARIANT_ADC
-      run: make
+    # 16 KiB UART IAP bootloader @ 0x08000000 (first ST-Link install)
+    - name: Build IAP bootloader
+      run: make -C Bootloader
 
-    # Build with Platformio
+    # Carrier SoftAP / UART OTA app @ 0x08004000 (matches Inc/config.h VARIANT_USART)
+    - name: Build USART app (OTA image)
+      run: make -e VARIANT=VARIANT_USART
+
+    # SoftAP OTA uploads the relocated app .bin (POST /update-board); not phone-OTA.
+    # Bootloader .bin is for one-time ST-Link install alongside the app.
+    - name: Upload foc-usart-ota app image
+      uses: actions/upload-artifact@v4
+      with:
+        name: foc-usart-ota
+        path: |
+          build/hover.bin
+          build/hover.hex
+          build/hover.elf
+        retention-days: 30
+        if-no-files-found: error
+
+    - name: Upload foc-iap-bootloader
+      uses: actions/upload-artifact@v4
+      with:
+        name: foc-iap-bootloader
+        path: |
+          Bootloader/build/bootloader.bin
+          Bootloader/build/bootloader.elf
+        retention-days: 30
+        if-no-files-found: error
+
+    # Multi-variant coverage (linker layout is shared with the OTA app)
     - name: PlatformIO Install
       run: |
         python -m pip install --upgrade pip
@@ -32,10 +59,9 @@ jobs:
     - name: PlatformIO Run
       run: pio run
 
-    - name: 'Upload Build Artifact'
+    - name: Upload PlatformIO build outputs
       uses: actions/upload-artifact@v4
       with:
         path: ${{github.workspace}}/.pio/build/**
-        name: ${{github.event.repository.name}}_build_${{github.run_number}}
+        name: ${{github.event.repository.name}}_pio_${{github.run_number}}
         retention-days: 5
-
