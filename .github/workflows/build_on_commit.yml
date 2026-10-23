@@ -1,13 +1,15 @@
 name: Build
 
+# pull_request: no base-branch filter — GitHub's default types are
+# opened/synchronize/reopened (not edited). Filtering to only
+# CarrierHasArrived_single_board skipped the OTA retarget force-push
+# while the PR still targeted main; changing the base alone does not
+# re-run Actions. Unfiltered pull_request keeps PR builds reliable.
 on:
   push:
     branches:
       - CarrierHasArrived_single_board
-      - cursor/hoverboard-ota-4ddd
   pull_request:
-    branches:
-      - CarrierHasArrived_single_board
 
 jobs:
   build:
