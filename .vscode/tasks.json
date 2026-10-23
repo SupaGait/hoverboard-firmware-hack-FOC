@@ -21,10 +21,21 @@
       }
     },
     {
+      "label": "Build bootloader",
+      "type": "shell",
+      "command": "make -C Bootloader",
+      "problemMatcher": ["$gcc"],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
       "label": "Flash firmware",
       "type": "shell",
-      "command": "st-flash --reset write build/hover.bin 0x8000000",
-      "dependsOn": "Build firmware",
+      "command": "st-flash write Bootloader/build/bootloader.bin 0x08000000; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; st-flash --reset write build/hover.bin 0x08004000",
+      "dependsOn": ["Build bootloader", "Build firmware"],
+      "dependsOrder": "sequence",
       "problemMatcher": [],
       "presentation": {
         "reveal": "always",
@@ -34,8 +45,9 @@
     {
       "label": "Flash firmware (probe-rs)",
       "type": "shell",
-      "command": "probe-rs download build/hover.bin --chip STM32F103RC --binary-format bin --base-address 0x8000000 --verify; probe-rs reset --chip STM32F103RC",
-      "dependsOn": "Build firmware",
+      "command": "probe-rs download Bootloader/build/bootloader.bin --chip STM32F103RC --binary-format bin --base-address 0x08000000; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; probe-rs download build/hover.bin --chip STM32F103RC --binary-format bin --base-address 0x08004000 --verify; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; probe-rs reset --chip STM32F103RC",
+      "dependsOn": ["Build bootloader", "Build firmware"],
+      "dependsOrder": "sequence",
       "problemMatcher": [],
       "presentation": {
         "reveal": "always",

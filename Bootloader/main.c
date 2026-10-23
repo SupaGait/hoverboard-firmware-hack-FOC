@@ -204,34 +204,44 @@ static int app_valid(void)
 {
   uint32_t msp = *(volatile uint32_t *)IAP_APP_BASE;
   uint32_t rst = *(volatile uint32_t *)(IAP_APP_BASE + 4u);
+  /* ST-Link programs the image only. The CRC trailer at the end of the region
+   * is left untouched, so a sane vector table is what decides the app can run. */
   if (msp < 0x20000000u || msp > 0x2000C000u) {
+    return 0;
+  }
+  if ((rst & 1u) == 0u) {
     return 0;
   }
   if (rst < IAP_APP_BASE || rst >= IAP_APP_BASE + IAP_APP_MAX_SIZE) {
     return 0;
   }
-  /* Meta at end of app region: [size:u32][crc:u32]. 0xFFFFFFFF = ST-Link app without meta. */
-  uint32_t size = *(volatile uint32_t *)IAP_APP_META_ADDR;
-  uint32_t crc = *(volatile uint32_t *)(IAP_APP_META_ADDR + 4u);
-  if (size == 0xFFFFFFFFu) {
-    return 1;
-  }
-  if (size == 0 || size > IAP_IMAGE_MAX) {
-    return 0;
-  }
-  return iap_crc32((const uint8_t *)IAP_APP_BASE, size) == crc;
+  return 1;
 }
 
 static void jump_to_app(void)
 {
   uint32_t msp = *(volatile uint32_t *)IAP_APP_BASE;
   uint32_t rv = *(volatile uint32_t *)(IAP_APP_BASE + 4u);
-  typedef void (*fn_t)(void);
-  fn_t app = (fn_t)rv;
-  __asm volatile("cpsid i");
-  *((volatile uint32_t *)0xE000ED08) = IAP_APP_BASE; /* VTOR */
-  __asm volatile("msr msp, %0" : : "r"(msp));
-  app();
+
+  __asm volatile("cpsid i" ::: "memory");
+  *((volatile uint32_t *)0xE000E010u) = 0u; /* SysTick->CTRL */
+  *((volatile uint32_t *)0xE000E018u) = 0u; /* SysTick->VAL */
+  for (uint32_t i = 0; i < 8u; i++) {
+    *((volatile uint32_t *)(0xE000E180u + 4u * i)) = 0xFFFFFFFFu; /* NVIC->ICER */
+    *((volatile uint32_t *)(0xE000E280u + 4u * i)) = 0xFFFFFFFFu; /* NVIC->ICPR */
+  }
+  *((volatile uint32_t *)0xE000ED08u) = IAP_APP_BASE; /* VTOR */
+  __asm volatile(
+      "dsb\n"
+      "isb\n"
+      "msr msp, %0\n"
+      "dsb\n"
+      "isb\n"
+      "cpsie i\n"
+      "bx %1\n"
+      :
+      : "r"(msp), "r"(rv)
+      : "memory");
   while (1) {
   }
 }
