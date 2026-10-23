@@ -42,7 +42,8 @@ _Min_Stack_Size = 0x400; /* required amount of stack */
 MEMORY
 {
 RAM (xrw)      : ORIGIN = 0x20000000, LENGTH = 48K
-FLASH (rx)      : ORIGIN = 0x8000000, LENGTH = 256K
+/* App image after 16 KiB UART IAP bootloader; EEPROM stays at 0x08010000. */
+FLASH (rx)      : ORIGIN = 0x08004000, LENGTH = 48K
 }
 
 /* Define output sections */
