@@ -20,6 +20,7 @@ Feedback stays the 18-byte frame (`speedL_meas`, `speedR_meas`, `batVoltage` in 
 | Define | On this branch |
 |--------|----------------|
 | `TANK_STEERING` | on, inside `VARIANT_USART` |
+| `CTRL_MOD_REQ` | `SPD_MODE` (forced in `VARIANT_USART`; ±1000 cmd = ±1000 rpm) |
 | `RATE` | 32767 (limiter open; the ESP32 ramps) |
 | `FILTER` | 65535 (input filter open) |
 | `INACTIVITY_TIMEOUT` | 65535 minutes, so an armed base does not latch off after 8 idle minutes |
@@ -31,7 +32,7 @@ Left as they already were on main, and required by the plan:
 |--------|--------|
 | `CONTROL_SERIAL_USART2` / `FEEDBACK_SERIAL_USART2` | on |
 | `CTRL_TYP_SEL` | `FOC_CTRL` |
-| `CTRL_MOD_REQ` | `SPD_MODE` (0 command holds 0 rpm) |
+| `CTRL_MOD_REQ` | `SPD_MODE` (0 command holds 0 rpm; also set globally on this branch) |
 | `BAT_CELLS` | 10 (36 V nominal) |
 | `I_MOT_MAX` | 15 A |
 | `FIELD_WEAK_ENA` | 0 |
