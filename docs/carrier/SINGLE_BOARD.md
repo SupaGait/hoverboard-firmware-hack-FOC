@@ -34,7 +34,7 @@ Left as they already were on main, and required by the plan:
 | `CTRL_TYP_SEL` | `FOC_CTRL` |
 | `CTRL_MOD_REQ` | `SPD_MODE` (0 command holds 0 rpm; also set globally on this branch) |
 | `BAT_CELLS` | 10 (36 V nominal) |
-| `I_MOT_MAX` | 15 A |
+| `I_MOT_MAX` | 8 A (matches Gen2 board B Carrier `DC_CUR_LIMIT`; `I_DC_MAX` = 10 A) |
 | `FIELD_WEAK_ENA` | 0 |
 | `SERIAL_TIMEOUT` | 160 (~0.8 s) → open mode if the ESP32 goes quiet |
 
