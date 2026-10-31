@@ -48,4 +48,14 @@ make -e VARIANT=VARIANT_USART
 pio run -e VARIANT_USART
 ```
 
+App image links at `0x08004000` (after the 16 KiB UART IAP bootloader). Flash the bootloader once, then the app:
+
+```bash
+make -C Bootloader flash          # 0x08000000
+make flash                        # app at 0x08004000
+# or: make flash-all
+```
+
+Later app updates go through Carrier SoftAP (`POST /update-board?target=A`). Protocol: CarrierHasArrived `docs/BOARD_IAP.md`.
+
 Wheel direction is checked on a stand with one wheel commanded at a time. The ESP32 stores the invert. Do not chase direction by editing this file per board.
