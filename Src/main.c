@@ -135,6 +135,8 @@ typedef struct{
   int16_t   batVoltage;
   int16_t   boardTemp;
   uint16_t  cmdLed;
+  int16_t   currentL;             // Left DC-link current, amps × 100
+  int16_t   currentR;             // Right DC-link current, amps × 100
   uint16_t  checksum;
 } SerialFeedback;
 static SerialFeedback Feedback;
@@ -531,6 +533,8 @@ int main(void) {
 #endif
         Feedback.batVoltage	    = (int16_t)batVoltageCalib;
         Feedback.boardTemp	    = (int16_t)board_temp_deg_c;
+        Feedback.currentL       = (int16_t)left_dc_curr;
+        Feedback.currentR       = (int16_t)right_dc_curr;
 
         #if defined(FEEDBACK_SERIAL_USART2)
           if(__HAL_DMA_GET_COUNTER(huart2.hdmatx) == 0) {
@@ -539,7 +543,8 @@ int main(void) {
 #ifdef ENABLE_ODOMETRY
                                            ^ Feedback.wheelR_cnt ^ Feedback.wheelL_cnt
 #endif
-                                           ^ Feedback.batVoltage ^ Feedback.boardTemp ^ Feedback.cmdLed);
+                                           ^ Feedback.batVoltage ^ Feedback.boardTemp ^ Feedback.cmdLed
+                                           ^ Feedback.currentL ^ Feedback.currentR);
 
             HAL_UART_Transmit_DMA(&huart2, (uint8_t *)&Feedback, sizeof(Feedback));
           }
@@ -551,7 +556,8 @@ int main(void) {
 #ifdef ENABLE_ODOMETRY
                                            ^ Feedback.wheelR_cnt ^ Feedback.wheelL_cnt
 #endif
-                                           ^ Feedback.batVoltage ^ Feedback.boardTemp ^ Feedback.cmdLed);
+                                           ^ Feedback.batVoltage ^ Feedback.boardTemp ^ Feedback.cmdLed
+                                           ^ Feedback.currentL ^ Feedback.currentR);
 
             HAL_UART_Transmit_DMA(&huart3, (uint8_t *)&Feedback, sizeof(Feedback));
           }

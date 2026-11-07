@@ -13,7 +13,7 @@ The phone and the ESP32 are specified in CarrierHasArrived `design/PLAN.md`. Thi
 
 The mixer (`SPEED_COEFFICIENT` / `STEER_COEFFICIENT`) is not used. Sign is fixed on the ESP32 per wheel, so `INVERT_L_DIRECTION` and `INVERT_R_DIRECTION` stay at the stock defaults.
 
-Feedback stays the 18-byte frame (`speedL_meas`, `speedR_meas`, `batVoltage` in volts × 100, `boardTemp` in °C × 10).
+Feedback is the 22-byte frame (`speedL_meas`, `speedR_meas`, `batVoltage` in volts × 100, `boardTemp` in °C × 10, `currentL` / `currentR` DC-link amps × 100).
 
 ## Config relative to main
 
